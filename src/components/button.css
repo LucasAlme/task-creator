@@ -1,12 +1,13 @@
 .add-button{
-    background-color: chartreuse;
+    background-color: #8e4dff;
     height: 40px;
     padding: 0 10px;
     border-radius: 5px;
     width: 100%;
     font-size: 16px;
-    color: #444;
+    color: #fff;
     font-weight: bold;
     cursor: pointer;
-    border: none
+    border: 0;
+    
 }

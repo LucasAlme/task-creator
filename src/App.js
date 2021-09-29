@@ -30,17 +30,23 @@ export default function App() {
     setTasks(newTasks);
   }
 
+  function handleRemoveClick(idTask) {
+    const newTasks = tasks.filter((task) => task.id !== idTask)
+
+    setTasks(newTasks)
+  }
+
   return (
     <>
       <div className="container">
         <h1>Minhas Tarefas</h1>
         <div className="add-task-container">
-          <input type="text" className="add-task-input" onChange={(txt) => setInputData(txt.target.value)} value={inputData} />
+          <input type="text" className="add-task-input" onChange={(txt) => setInputData(txt.target.value)} value={inputData} placeholder="Digite uma tarefa" />
           <div className="add-task-button-container">
-            <Button onClick={handleTaskAdd}>Adicionar</Button>
+            <Button onClick={handleTaskAdd} >Adicionar</Button>
           </div>
         </div>
-        <Tasks tasks={tasks} onClick={(idTask) => handleTaskClick(idTask)} />
+        <Tasks tasks={tasks} onClick={(idTask) => handleTaskClick(idTask)} onRemove={(idTask) => handleRemoveClick(idTask)} />
       </div>
     </>
   )
