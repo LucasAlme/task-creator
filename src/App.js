@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import './App.css'
 import Button from "./components/button";
 import Tasks from "./components/tasks";
@@ -15,7 +16,18 @@ export default function App() {
   const [inputData, setInputData] = useState("");
 
   function handleTaskAdd() {
-    setTasks([...tasks, { title: inputData, id: Math.random(10) }])
+    setTasks([...tasks, { title: inputData, id: uuidv4(), completed: false }]);
+    setInputData("");
+  }
+
+  function handleTaskClick(idTask) {
+    const newTasks = tasks.map((task) => {
+      if (task.id === idTask)
+        return { ...task, completed: !task.completed }
+
+      return task
+    })
+    setTasks(newTasks);
   }
 
   return (
@@ -28,7 +40,7 @@ export default function App() {
             <Button onClick={handleTaskAdd}>Adicionar</Button>
           </div>
         </div>
-        <Tasks tasks={tasks} />
+        <Tasks tasks={tasks} onClick={(idTask) => handleTaskClick(idTask)} />
       </div>
     </>
   )
