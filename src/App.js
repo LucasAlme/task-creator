@@ -3,9 +3,11 @@ import { v4 as uuidv4 } from "uuid";
 import './App.css'
 import Button from "./components/button";
 import Tasks from "./components/tasks";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import TaskDetails from "./components/taskDetails";
+
 
 export default function App() {
-
   const [tasks, setTasks] = useState([
     { id: 1, title: "Ler Livros", completed: true },
     { id: 2, title: "Estudar Programação", completed: false },
@@ -37,17 +39,23 @@ export default function App() {
   }
 
   return (
-    <>
+    <Router>
       <div className="container">
-        <h1>Minhas Tarefas</h1>
-        <div className="add-task-container">
-          <input type="text" className="add-task-input" onChange={(txt) => setInputData(txt.target.value)} value={inputData} placeholder="Digite uma tarefa" />
-          <div className="add-task-button-container">
-            <Button onClick={handleTaskAdd} >Adicionar</Button>
-          </div>
-        </div>
-        <Tasks tasks={tasks} onClick={(idTask) => handleTaskClick(idTask)} onRemove={(idTask) => handleRemoveClick(idTask)} />
+        <Route path="/" exact render={() => (
+          <>
+            <h1>Minhas Tarefas</h1>
+            <div className="add-task-container">
+              <input type="text" className="add-task-input" onChange={(txt) => setInputData(txt.target.value)} value={inputData} placeholder="Digite uma tarefa" />
+              <div className="add-task-button-container">
+                <Button onClick={handleTaskAdd} >Adicionar</Button>
+              </div>
+            </div>
+            <Tasks tasks={tasks} onClick={(idTask) => handleTaskClick(idTask)} onRemove={(idTask) => handleRemoveClick(idTask)} />
+          </>
+        )}
+        />
+        <Route path="/details" exact render={TaskDetails} />
       </div>
-    </>
+    </Router>
   )
 }
